@@ -36,6 +36,7 @@ std::string report(const json& tree) {
 	for (auto& p : problems) {
 		json& tests = p["tests"];
 		STREAM << "### " << p["name"] << "\n";
+		if (p["error"] != nullptr)STREAM << p["error"] << "\n";
 		STREAM << "---------------\n";
 		for (auto& t : tests) {
 			STREAM <<t["name"];
@@ -88,6 +89,11 @@ void runTests(json& p,std::string parent_path) {
 	FA nfa;
 	try {
 		nfa = parse_fa(filename);
+	}
+	catch (invalid_spec& is) {
+		p["error"] = is.what();
+		std::cerr << is.what() << "\n";
+		return;
 	}
 	catch (...) {
 		std::cerr << "Could not read " << filename << "\n";
@@ -167,15 +173,15 @@ json  runProblems(std::string filename) {
 	
 }
 int main(int argc,char **argv) {
-/*	char *buf=(char *)malloc(1024);
-	std::cout<<"working dir="<<getwd(buf)<<std::endl;*/
+
 	if (argc < 3) {
 		std::cerr << "usage: FaChecker filename.json report.md\n";
 		exit(1);
 	}
-	auto config_filename = argv[1];
-	auto report_filename=argv[2];
-	std::cerr<<"START \n";
+		auto config_filename = argv[1];
+		auto report_filename=argv[2];
+	
+		std::cerr<<"START \n";
 	try {
 		json tree = runProblems(config_filename);
 		dump(tree);

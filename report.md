@@ -1,13 +1,13 @@
-# TOTAL 50/100
+# TOTAL 36/100
 ---------------------------------
 DETAILS
 
 ### "problem1"
+"C:\\Users\\hikma\\source\\repos\\NDU-CSC311\\hw1\\data/1.json: No accepting state"
 ---------------
 "test1" __PASSED__...........	__Points__=2
 
-"test2" __FAILED__...........	__Points__=0
-	for input = "100110"	expected:true	result:false
+"test2" __PASSED__...........	__Points__=2
 
 "test3" __PASSED__...........	__Points__=2
 
@@ -15,23 +15,22 @@ DETAILS
 
 "test5" __PASSED__...........	__Points__=2
 
-__SUBTOTAL__=   8/10
+__SUBTOTAL__=   0/10
 
 ### "problem2"
+"C:\\Users\\hikma\\source\\repos\\NDU-CSC311\\hw1\\data/2.json: Missing label on transition"
 ---------------
 "test1" __PASSED__...........	__Points__=2
 
-"test2" __FAILED__...........	__Points__=0
-	for input = "100110"	expected:true	result:false
+"test2" __PASSED__...........	__Points__=2
 
-"test3" __FAILED__...........	__Points__=0
-	for input = "0110"	expected:true	result:false
+"test3" __PASSED__...........	__Points__=2
 
 "test4" __PASSED__...........	__Points__=2
 
 "test5" __PASSED__...........	__Points__=2
 
-__SUBTOTAL__=   6/10
+__SUBTOTAL__=   0/10
 
 ### "problem3"
 ---------------

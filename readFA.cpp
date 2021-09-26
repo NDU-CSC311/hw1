@@ -95,11 +95,11 @@ FA parse_fa (std::string filename) {
 		}
 	}
 	if (has_missing_label == true)
-		throw invalid_spec("missing label on transition");
+		throw invalid_spec(filename+": Missing label on transition");
 	if (has_starting == false)
-		throw invalid_spec("no starting state");
+		throw invalid_spec(filename+ ": No starting state");
 	if (has_accepting == false)
-		throw invalid_spec("no accepting state");
+		throw invalid_spec(filename+": No accepting state");
 	
 	return nfa;
 }
