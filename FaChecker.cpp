@@ -85,6 +85,10 @@ int dump(const json& tree) {
 }
 void runTests(json& p,std::string parent_path) {
 	if(debug)std::cerr<<"Processing problem "<<p["name"]<<"\n";
+	json& tests = p["tests"];
+	//initialize to zero
+	bool flip = false;
+	int total = 0;
 	auto filename = parent_path + "/" + static_cast<std::string>(p["NFA-specs"]);
 	FA nfa;
 	try {
@@ -93,6 +97,8 @@ void runTests(json& p,std::string parent_path) {
 	catch (invalid_spec& is) {
 		p["error"] = is.what();
 		std::cerr << is.what() << "\n";
+		for (auto& t : p["tests"])
+			t["points"] = 0;
 		return;
 	}
 	catch (...) {
@@ -101,9 +107,6 @@ void runTests(json& p,std::string parent_path) {
 			t["points"] = 0;
 		return;
 	}
-	json& tests = p["tests"];
-	bool flip = false;
-	int total = 0;
 	//int possible = 0;
 	
 	for (auto& t : tests) {
