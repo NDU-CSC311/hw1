@@ -36,6 +36,7 @@ std::string report(const json& tree) {
 	for (auto& p : problems) {
 		json& tests = p["tests"];
 		STREAM << "### " << p["name"] << "\n";
+		if (p["error"] != nullptr)STREAM << p["error"] << "\n";
 		STREAM << "---------------\n";
 		for (auto& t : tests) {
 			STREAM <<t["name"];
@@ -84,10 +85,21 @@ int dump(const json& tree) {
 }
 void runTests(json& p,std::string parent_path) {
 	if(debug)std::cerr<<"Processing problem "<<p["name"]<<"\n";
+	json& tests = p["tests"];
+	//initialize to zero
+	bool flip = false;
+	int total = 0;
 	auto filename = parent_path + "/" + static_cast<std::string>(p["NFA-specs"]);
 	FA nfa;
 	try {
 		nfa = parse_fa(filename);
+	}
+	catch (invalid_spec& is) {
+		p["error"] = is.what();
+		std::cerr << is.what() << "\n";
+		for (auto& t : p["tests"])
+			t["points"] = 0;
+		return;
 	}
 	catch (...) {
 		std::cerr << "Could not read " << filename << "\n";
@@ -95,9 +107,6 @@ void runTests(json& p,std::string parent_path) {
 			t["points"] = 0;
 		return;
 	}
-	json& tests = p["tests"];
-	bool flip = false;
-	int total = 0;
 	//int possible = 0;
 	
 	for (auto& t : tests) {
@@ -167,15 +176,15 @@ json  runProblems(std::string filename) {
 	
 }
 int main(int argc,char **argv) {
-/*	char *buf=(char *)malloc(1024);
-	std::cout<<"working dir="<<getwd(buf)<<std::endl;*/
+
 	if (argc < 3) {
 		std::cerr << "usage: FaChecker filename.json report.md\n";
 		exit(1);
 	}
-	auto config_filename = argv[1];
-	auto report_filename=argv[2];
-	std::cerr<<"START \n";
+		auto config_filename = argv[1];
+		auto report_filename=argv[2];
+	
+		std::cerr<<"START \n";
 	try {
 		json tree = runProblems(config_filename);
 		dump(tree);
