@@ -20,8 +20,8 @@ shown below. It contains an array of "nodes" corresponding to the states of the 
 like its x and y coordinates. The autograder does not care about the coordinates. The only property it needs is whether
 a node is accepting or not. Also, the autograder doesn't care if you give a label to the node or not (i.e. the "text" property which is empty in this example)
 it refers to the nodes by their index in the array, 0,1,2...
-There are 4 properties of the link needed by the autograder. Whether it is a StartLink or Link. Only the starting state is a StartLink and all
-the others are just Link. Next it looks at "nodeA" and "nodeB". This means a transition from nodeA to nodeB.
+There are 4 properties of the link needed by the autograder. Whether it is a StartLink, SelfLink or Link. Thre is only one StartLink, incoming
+on the start state. A SelfLink is a loop and the others are just Link. Next it looks at "nodeA" and "nodeB". This means a transition from nodeA to nodeB.
 Example "nodeA":1,"nodeB":3 means a transition from 1 to 3. The label of the transition is read from "text"
 For example "nodeA":1,"nodeB":3,"text":"0" means a transition on 0 from nodeA to nodeB.
 This explanation allows you to fix the JSON file manually in case the fsm.html does not convert corretly what you drew to JSON. 
